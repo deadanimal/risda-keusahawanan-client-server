@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\AuditTrail;
 use App\Models\Peranan;
-use App\Models\Pegawai;
+use App\Models\Negeri;
 use App\Models\Mukim;
 use App\Models\Usahawan;
 use Session;
@@ -66,6 +67,13 @@ class LandingControllerWeb extends Controller
             'noti'=>$noti
         ]
         );
+    }
+
+
+    public function test()
+    {
+        $a = Hash::make('Reds@12345');
+        dd($a);
     }
 
 }

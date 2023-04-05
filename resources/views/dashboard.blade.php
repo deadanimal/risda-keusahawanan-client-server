@@ -272,7 +272,7 @@
                         </div></a>
                       </li>
                       <li class="nav-item"><a class="nav-link {{  request()->routeIs('pantauindividu.*') || request()->routeIs('pantauindividudetail.*') ? 'active' : '' }}" href="/pantauindividu">
-                        {{-- onclick="generatereport(10,this.href);return false;" --}}
+                        <!-- {{-- onclick="generatereport(10,this.href);return false;" --}} -->
                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pemantauan Individu</span>
                         </div></a>
                       </li>
@@ -293,7 +293,6 @@
                         </div></a>
                       </li>
                       <li class="nav-item"><a class="nav-link {{  request()->routeIs('penyatauntungrugi.*') || request()->routeIs('penyatauntungrugiDetail.*') ? 'active' : '' }}" onclick="generatereport(13,this.href,'');return false;" href="/penyatauntungrugi">
-                        {{-- onclick="generatereport(13,this.href);return false;" --}}
                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Penyata Untung Rugi</span>
                         </div></a>
                       </li>

@@ -47,7 +47,7 @@
                           <td class="text-nowrap"><label class="form-check-label">{{$user->namausahawan}}</label></td>
                           <td class="text-nowrap"><label class="form-check-label">{{$user->nokadpengenalan}}</label></td>
                           <td class="text-nowrap"><label class="form-check-label">@if(isset($user->PT)){{$user->PT->keterangan}}@endif</label></td>
-                          <td class="text-nowrap"><button class="btn btn-falcon-default btn-sm me-1 mb-1" type="button" onclick="window.location.href='/insentifdetail/{{$user->usahawanid}}'">
+                          <td class="text-nowrap"><button class="btn btn-falcon-default btn-warning btn-sm me-1 mb-1" type="button" onclick="window.location.href='/insentifdetail/{{$user->usahawanid}}'">
                               Kemaskini
                           </button></td>
                       </tr>

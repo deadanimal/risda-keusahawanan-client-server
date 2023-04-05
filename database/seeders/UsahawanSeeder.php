@@ -18,7 +18,7 @@ class UsahawanSeeder extends Seeder
         DB::table('usahawans')->truncate();
         
         $csvFile = fopen(base_path("database/data/Usahawan.csv"), "r");
-  
+        DB::statement('SET IDENTITY_INSERT usahawans ON');
         $firstline = true;
         while (($data = fgetcsv($csvFile, 15000, ",")) !== FALSE) {
             if (!$firstline) {

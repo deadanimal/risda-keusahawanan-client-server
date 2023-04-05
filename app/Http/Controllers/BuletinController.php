@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buletin;
-use Facade\FlareClient\Stacktrace\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class BuletinController extends Controller
@@ -17,16 +17,38 @@ class BuletinController extends Controller
 
     public function store(Request $request)
     {
+     
         $buletin = new Buletin();
+
+        if ($request->hasFile('gambar_buletin')) {
+            $url ="storage/".$request->gambar_buletin->store('/buletin');
+            $buletin->gambar_buletin = $url;
+        }
+
         $buletin->id_pegawai = $request->id_pegawai;
         $buletin->tajuk = $request->tajuk;
         $buletin->tarikh = $request->tarikh;
         $buletin->keterangan_lain = $request->keterangan_lain;
         $buletin->status = $request->status;
+        // $buletin->gambar_buletin = $request->gambar_buletin;
         $buletin->url = $request->url;
-        $buletin->gambar_buletin = $request->gambar_buletin;
+      
 
         $buletin->save();
+
+        // $image = $request->gambar_buletin; // your base64 encoded
+        // $ext = explode(';base64', $image);
+        // $ext = explode('/', $ext[0]);
+        // $ext = $ext[1];
+        // $image = str_replace('data:image/' . $ext . ';base64,', '', $image);
+        // $image = str_replace(' ', '+', $image);
+        // $imageName = $buletin->id . '.' . $ext;
+        // File::put(public_path() . '/storage/buletin/' . $imageName, base64_decode($image));
+
+        // $url = url("/storage/buletin/".$imageName);
+        // $buletin->update([
+        //     'gambar_buletin'=> $url,
+        // ]);
 
         return response()->json($buletin);
     }
@@ -39,23 +61,21 @@ class BuletinController extends Controller
 
     public function update(Request $request, Buletin $buletin)
     {
-
-        $image = $request->gambar_url; // your base64 encoded
-        $ext = explode(';base64', $image);
-        $ext = explode('/', $ext[0]);
-        $ext = $ext[1];
-        $image = str_replace('data:image/' . $ext . ';base64,', '', $image);
-        $image = str_replace(' ', '+', $image);
-        $imageName = $buletin->id . '.' . $ext;
-        File::put(public_path() . '/storage/images/buletin/' . $imageName, base64_decode($image));
+        if ($request->hasFile('gambar_buletin')) {
+            if (File::exists(public_path($buletin->gambar_buletin))) {
+                File::delete(public_path($buletin->gambar_buletin));
+           }
+           $url ="storage/".$request->gambar_buletin->store('/buletin');
+           $buletin->gambar_buletin = $url;
+        }
 
         $buletin->tajuk = $request->tajuk;
         $buletin->tarikh = $request->tarikh;
         $buletin->keterangan_lain = $request->keterangan_lain;
         $buletin->status = $request->status;
         // $buletin->url = $request->url;
-        $buletin->url = "/images/buletin/" . $imageName;
-        $buletin->gambar_buletin = $request->gambar_buletin;
+        // $buletin->url = "/images/buletin/" . $imageName;
+        // $buletin->gambar_buletin = $request->gambar_buletin;
 
         $buletin->save();
 
@@ -70,7 +90,8 @@ class BuletinController extends Controller
      */
     public function destroy(Buletin $buletin)
     {
-        //
+        $buletin->delete();
+        return 'deleted';
     }
 
 }

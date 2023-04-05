@@ -292,6 +292,7 @@ class LaporanProfilControllerWeb extends Controller
         if(!isset($authuser)){
             return redirect('/landing');
         }
+
         $getYear = date("Y");
         if($request->type == 1){
             $loguser = Auth::user();
@@ -734,38 +735,47 @@ class LaporanProfilControllerWeb extends Controller
                 return "Laporan Berjaya Dijana";
             }
         }
-
         if($request->type == 6){
-            $loguser = Auth::user();
+            $loguser = auth()->user();
             if(isset($loguser->idpegawai)){
                 $pegawai = Pegawai::where('id', $loguser->idpegawai)->first();
             }
-            Report::where('tab20', $loguser->id)->where('type', 6)->delete();
+           Report::where('tab20', $loguser->id)->where('type', 6)->delete();
+
 
             if($loguser->role == 1 || $loguser->role == 2){
                 $insentifs = Insentif::join('usahawans', 'usahawans.usahawanid', '=', 'insentifs.id_pengguna')
                 ->select('insentifs.*', 'usahawans.tarikhlahir', 'usahawans.U_Jantina_ID')
-                ->selectRaw("TIMESTAMPDIFF(YEAR, DATE(usahawans.tarikhlahir), current_date) AS age")
+                ->selectRaw("usahawans.age AS age")
                 ->get()
                 ->groupBy(['tahun_terima_insentif','id_jenis_insentif','age']);
             }else if($loguser->role == 3 || $loguser->role == 5){
+                // $insentifs = Insentif::join('usahawans', 'usahawans.usahawanid', '=', 'insentifs.id_pengguna')
+                // ->select('insentifs.*', 'usahawans.tarikhlahir', 'usahawans.U_Jantina_ID', 'usahawans.U_Negeri_ID')
+                // ->selectRaw("TIMESTAMPDIFF(YEAR, DATE(usahawans.tarikhlahir), current_date) AS age")
+                // ->where('usahawans.U_Negeri_ID',$pegawai->Mukim->U_Negeri_ID)
+                // ->get()
+                // ->groupBy(['tahun_terima_insentif','id_jenis_insentif','age']);
                 $insentifs = Insentif::join('usahawans', 'usahawans.usahawanid', '=', 'insentifs.id_pengguna')
                 ->select('insentifs.*', 'usahawans.tarikhlahir', 'usahawans.U_Jantina_ID', 'usahawans.U_Negeri_ID')
-                ->selectRaw("TIMESTAMPDIFF(YEAR, DATE(usahawans.tarikhlahir), current_date) AS age")
+                ->selectRaw("usahawans.age AS age")
                 ->where('usahawans.U_Negeri_ID',$pegawai->Mukim->U_Negeri_ID)
                 ->get()
                 ->groupBy(['tahun_terima_insentif','id_jenis_insentif','age']);
+               
+
+
             }else if($loguser->role == 4 || $loguser->role == 6){
                 $insentifs = Insentif::join('usahawans', 'usahawans.usahawanid', '=', 'insentifs.id_pengguna')
                 ->select('insentifs.*', 'usahawans.tarikhlahir', 'usahawans.U_Jantina_ID', 'usahawans.U_Daerah_ID')
-                ->selectRaw("TIMESTAMPDIFF(YEAR, DATE(usahawans.tarikhlahir), current_date) AS age")
+                ->selectRaw("usahawans.age AS age")
                 ->where('usahawans.U_Daerah_ID',$pegawai->Mukim->U_Daerah_ID)
                 ->get()
                 ->groupBy(['tahun_terima_insentif','id_jenis_insentif','age']);
             }else if($loguser->role == 7){
                 $insentifs = Insentif::join('usahawans', 'usahawans.usahawanid', '=', 'insentifs.id_pengguna')
                 ->select('insentifs.*', 'usahawans.tarikhlahir', 'usahawans.U_Jantina_ID', 'usahawans.Kod_PT')
-                ->selectRaw("TIMESTAMPDIFF(YEAR, DATE(usahawans.tarikhlahir), current_date) AS age")
+                ->selectRaw("usahawans.age AS age")
                 ->where('usahawans.Kod_PT',$pegawai->NamaPT)
                 ->get()
                 ->groupBy(['tahun_terima_insentif','id_jenis_insentif','age']);
@@ -1377,15 +1387,20 @@ class LaporanProfilControllerWeb extends Controller
         }
 
         if($request->type == 13){
-            Report::where('tab20', Auth::user()->id)->where('type', 13)->delete();
+            Report::where('tab20', auth()->id())->where('type', 13)->delete();
+
             $alirans = Aliran::all();
+
             if($alirans->count()==0){
                 return "Tiada Data Aliran Dijumpai";
             }else{
+                $reports = Report::where('tab20', Auth::user()->id)->where('type', 13)->get();
+
                 foreach ($alirans as $aliran) {
                     $aliran->bulan = date('m', strtotime($aliran->tarikh_aliran));
                     $aliran->tahun = date('Y', strtotime($aliran->tarikh_aliran));
-                    $reports = Report::where('tab20', Auth::user()->id)->where('type', 13)->get();
+
+
                     if($aliran->id_kategori_aliran == 1 || ($aliran->id_kategori_aliran == 2) || ($aliran->id_kategori_aliran == 11)){
                         $aliran->jeniskatealiran = 1;
                     }else if($aliran->id_kategori_aliran == 3 || ($aliran->id_kategori_aliran == 4) || ($aliran->id_kategori_aliran == 9) || ($aliran->id_kategori_aliran == 10) || ($aliran->id_kategori_aliran == 12)){
@@ -1406,29 +1421,24 @@ class LaporanProfilControllerWeb extends Controller
                                 if($aliran->jeniskatealiran == 1){
                                     if($aliran->id_kategori_aliran == 11){
                                         $report->tab4 = $report->tab4 - $aliran->jumlah_aliran;
-                                        $report->save();
                                     }else{
                                         $report->tab4 = $report->tab4 + $aliran->jumlah_aliran;
-                                        $report->save();
                                     }
 
                                 }else if($aliran->jeniskatealiran == 2){
                                     if($aliran->id_kategori_aliran == 3 || ($aliran->id_kategori_aliran == 4)){
                                         $report->tab4 = $report->tab4 + $aliran->jumlah_aliran;
-                                        $report->save();
                                     }else{
                                         $report->tab4 = $report->tab4 - $aliran->jumlah_aliran;
-                                        $report->save();
                                     }
 
                                 }else if($aliran->jeniskatealiran == 3){
                                     $report->tab4 = $report->tab4 + $aliran->jumlah_aliran;
-                                    $report->save();
 
                                 }else if($aliran->jeniskatealiran == 4){
                                     $report->tab4 = $report->tab4 + $aliran->jumlah_aliran;
-                                    $report->save();
                                 }
+                                $report->save();
                             }
                         }
                         if($update == false){

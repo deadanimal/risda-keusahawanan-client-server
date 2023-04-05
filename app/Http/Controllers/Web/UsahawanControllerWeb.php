@@ -31,7 +31,7 @@ class UsahawanControllerWeb extends Controller
 {
     public function index()
     {
-        $ddPT = PusatTanggungjawab::where('status', 1)->get();
+        $ddPT = PusatTanggungjawab::where('status', 1)->orderBy('keterangan','ASC')->get();
         $ddNegeri = Negeri::where('status', 1)->get();
 
         return view('usahawanWeb.landing'
@@ -121,7 +121,8 @@ class UsahawanControllerWeb extends Controller
         $ddSeksyen = Seksyen::where('status', 1)->get();
         $ddKateUsahawan = KategoriUsahawan::where('status_kategori_usahawan', 'aktif')->get();
         if($authuser->role == 1){
-            $users = Usahawan::without(['PT','daerah','dun','parlimen','kateusah','syarikat','etnik','mukim','kampung','seksyen','insentif'])->get();
+            // $users = Usahawan::without(['PT','daerah','dun','parlimen','kateusah','syarikat','etnik','mukim','kampung','seksyen','insentif'])->get();
+            $users = Usahawan::with(['user','pekebun','negeri','perniagaan'])->get();
         }else if($authuser->role == 3){
             $users = Usahawan::where('U_Negeri_ID',$authmukim->U_Negeri_ID)->get();
         }else if($authuser->role == 4){
@@ -209,8 +210,7 @@ class UsahawanControllerWeb extends Controller
     public function usahawanPost(Request $request)
     {
         if($request->type == 'status'){
-            $user = User::where('usahawanid', $request->id)->update
-            ([
+            $user = User::where('usahawanid', $request->id)->update([
                 'status_pengguna' => $request->status
             ]);
             // $user->status_pengguna = 

@@ -268,8 +268,9 @@ class LawatanController extends Controller
             )
             ->get()->first();
 
-        $usahawan = Usahawan::where('usahawanid', $lawatan->usahawanid)
-            ->get()->first();
+        $usahawan = Usahawan::with(['user','pekebun','negeri','PT','daerah','dun','parlimen','perniagaan','kateusah','syarikat', 'insentif', 'etnik', 'mukim', 'kampung', 'seksyen'])
+            ->where('usahawanid', $lawatan->usahawanid)
+            ->first();
 
         // dd($usahawan);
 

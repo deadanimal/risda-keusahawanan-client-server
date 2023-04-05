@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf;
+use PDF;
 
 class KatalogController extends Controller
 {
@@ -35,39 +35,43 @@ class KatalogController extends Controller
     public function store(Request $request)
     {
         // return json_decode($request->data);
-        try {
+        try {    
+            $katalog = new Katalog();
+            if ($request->hasFile('gambar_url')) {
+
+                $url ="storage/".$request->gambar_url->store('/katalog');
+                $katalog->gambar_url = $url;
+            }
             // $name = rand(10000, 99999);
 
-            $data = json_decode($request->data);
+           // $data = json_decode($request->data);
 
-            $katalog = new Katalog();
-            $katalog->id_pengguna = $data->id_pengguna;
-            $katalog->nama_produk = $data->nama_produk;
-            $katalog->kandungan_produk = $data->kandungan_produk;
-            $katalog->harga_produk = $data->harga_produk;
-            $katalog->berat_produk = $data->berat_produk;
-            $katalog->keterangan_produk = $data->keterangan_produk;
+            
+            $katalog->id_pengguna = $request->id_pengguna;
+            $katalog->nama_produk = $request->nama_produk;
+            $katalog->kandungan_produk = $request->kandungan_produk;
+            $katalog->harga_produk = $request->harga_produk;
+            $katalog->berat_produk = $request->berat_produk;
+            $katalog->keterangan_produk = $request->keterangan_produk;
             // $katalog->gambar_url = '../images/katalog/' . $imgname;
 
-            $katalog->baki_stok = $data->baki_stok;
-            $katalog->unit_production = $data->unit_production;
-            $katalog->status_katalog = $data->status_katalog;
+            $katalog->baki_stok = $request->baki_stok;
+            $katalog->unit_production = $request->unit_production;
+            $katalog->status_katalog = $request->status_katalog;
             // $katalog->disahkan_oleh = $request->disahkan_oleh;
-            $katalog->modified_by = $data->modified_by;
+            $katalog->modified_by = $request->modified_by;
 
             $katalog->save();
 
-            $imgname = $katalog->id . '.' . $request->file->extension();
-            $url = Storage::putFileAs('/images/katalog', $request->file, $imgname);
-            $katalog->update([
-                'gambar_url' => $url,
-            ]);
+           // $imgname = $katalog->id . '.' . $request->file->extension();
+            // $url =  Storage::put('storage/images/katalog', $request->file, $imgname);
+          
 
             // $request->file->move(public_path('images/katalog'), $imgname);
 
-            if ($data->status_katalog == 'pending') {
+            if ($request->status_katalog == 'pending') {
 
-                $pegawais = User::where('users.id', $data->id_pengguna)
+                $pegawais = User::where('users.id', $request->id_pengguna)
                     ->join('usahawans', 'usahawans.usahawanid', 'users.usahawanid')
                     ->join('pegawais', 'pegawais.NamaPT', 'usahawans.Kod_PT')
                     ->select('pegawais.id as pegawai_id')
@@ -106,19 +110,35 @@ class KatalogController extends Controller
 
     public function update(Request $request, Katalog $katalog)
     {
-        $katalog->id_pengguna = $request->id_pengguna;
-        $katalog->nama_produk = $request->nama_produk;
-        $katalog->kandungan_produk = $request->kandungan_produk;
-        $katalog->harga_produk = $request->harga_produk;
-        $katalog->berat_produk = $request->berat_produk;
-        $katalog->keterangan_produk = $request->keterangan_produk;
-        $katalog->gambar_url = $request->gambar_url;
+        //dd(request()->all());
+       
 
-        $katalog->baki_stok = $request->baki_stok;
-        $katalog->unit_production = $request->unit_production;
-        $katalog->status_katalog = $request->status_katalog;
+        if ($request->hasFile('gambar_url')) {
+            if (File::exists(public_path($katalog->gambar_url))) {
+                File::delete(public_path($katalog->gambar_url));
+           }
+           $url ="storage/".$request->gambar_url->store('/katalog');
+           $katalog->gambar_url = $url;
+        }
+
+         // $url ="storage/".$request->gambar_url->store('/katalog');
+            // $katalog->update([
+            //     'gambar_url' => $url,
+            // ]);
+
+        $katalog->id_pengguna = $request->id_pengguna ?? $katalog->id_pengguna;
+        $katalog->nama_produk = $request->nama_produk ?? $katalog->nama_produk;
+        $katalog->kandungan_produk = $request->kandungan_produk ?? $katalog->kandungan_produk;
+        $katalog->harga_produk = $request->harga_produk ?? $katalog->harga_produk;
+        $katalog->berat_produk = $request->berat_produk ?? $katalog->berat_produk;
+        $katalog->keterangan_produk = $request->keterangan_produk ?? $katalog->keterangan_produk;
+        // $katalog->gambar_url = $request->gambar_url;
+
+        $katalog->baki_stok = $request->baki_stok ?? $katalog->baki_stok;
+        $katalog->unit_production = $request->unit_production ?? $katalog->unit_production;
+        $katalog->status_katalog = $request->status_katalog ?? $katalog->status_katalog;
         // $katalog->disahkan_oleh = $request->disahkan_oleh;
-        $katalog->modified_by = $request->modified_by;
+        $katalog->modified_by = $request->modified_by ?? $katalog->modified_by;
 
         $katalog->save();
 
@@ -148,11 +168,9 @@ class KatalogController extends Controller
 
     public function destroy(Katalog $katalog)
     {
-        if (File::exists(public_path('/storage/images/katalog/' . $katalog->id . '.jpg'))) {
-            File::delete(public_path('/storage/images/katalog/' . $katalog->id . '.jpg'));
-        } else {
-            // dd('File does not exists.', $katalog->id);
-        }
+        if (File::exists(public_path($katalog->gambar_url))) {
+            File::delete(public_path($katalog->gambar_url));
+        } 
 
         $katalog->delete();
 
@@ -190,7 +208,6 @@ class KatalogController extends Controller
 
     public function katalogPdf($id)
     {
-
         $katalog = Katalog::where("katalogs.id", $id)
         // ->join('users', 'users.id', 'katalogs.id_pengguna')
         // ->join('usahawans', 'usahawans.usahawanid', 'users.usahawanid')
@@ -231,7 +248,7 @@ class KatalogController extends Controller
 
         // dd($usahawan);
 
-        $pdf = Pdf::loadView('pdf.katalog', [
+        $pdf = PDF::loadView('pdf.katalog', [
             'katalog' => $katalog,
             'usahawan' => $usahawan,
         ])->setPaper('a4', 'landscape');

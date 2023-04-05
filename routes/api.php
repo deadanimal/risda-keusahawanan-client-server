@@ -53,7 +53,6 @@ use Illuminate\Validation\ValidationException;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
 Route::apiResource('user', UserController::class);
 Route::apiResource('usahawan', UsahawanController::class);
 Route::apiResource('pegawai', PegawaiController::class);
@@ -135,7 +134,7 @@ Route::get('deleteStok/{id}', [StokController::class, 'deleteMany']);
 
 Route::get('/katalogPegawai/{i}', [KatalogController::class, 'showKatalogPegawai']);
 Route::get('/pengesahanPegawai/{i}', [KatalogController::class, 'pengesahanPegawai']);
-Route::get('katalog/katalogPdf/{i}', [KatalogController::class, 'katalogPdf']);
+Route::get('/katalog/katalogPdf/{i}', [KatalogController::class, 'katalogPdf']);
 Route::get('katalog/showMaklumatUsahawan/{i}', [KatalogController::class, 'showMaklumatUsahawan']);
 
 Route::get('/lawatan/usahawan/{id}', [LawatanController::class, 'showLawatanUsahawan']);

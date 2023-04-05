@@ -17,6 +17,7 @@ use App\Models\Mukim;
 use App\Models\JenisInsentif;
 use App\Models\Negeri;
 use App\Models\Pekebun;
+use Carbon\Carbon;
 
 class DashControllerWeb extends Controller
 {
@@ -114,10 +115,19 @@ class DashControllerWeb extends Controller
                         $insentifdata2->kateusahawan = $usahawan->kateusah->nama_kategori_usahawan;
                     }
                     
-                    $dateOfBirth = $usahawan->tarikhlahir;
-                    $today = date("Y-m-d");
-                    $diff = date_diff(date_create($dateOfBirth), date_create($today));
-                    $umur = $diff->format('%y');
+                    // $dateOfBirth = $usahawan->tarikhlahir;
+                    if ($usahawan->tarikhlahir != null) {
+                        $dateOfBirth = Carbon::createFromFormat('Y-m-d', $usahawan->tarikhlahir);
+                        $endDate = now(); 
+                        $umur = $dateOfBirth->diffInYears($endDate);
+                    }else{
+                        $umur = 0;
+                    }
+                    // $today = date("Y-m-d");
+                    // $diff = date_diff(date_create($dateOfBirth), date_create($today));
+                    // $umur = $diff->format('%y');
+
+
 
                     if($umur <= 20){
                         $insentifdata2->umurgrp = 1;

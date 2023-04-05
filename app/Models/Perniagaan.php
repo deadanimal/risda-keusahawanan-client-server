@@ -9,7 +9,7 @@ class Perniagaan extends Model
 {
     use HasFactory;
 
-    protected $with = ['jenis', 'negeri', 'daerah', 'parlimen', 'dun', 'mukim', 'kampung', 'seksyen', 'produk', 'kluster' ];
+    protected $with = ['jenis', 'negeri', 'daerah', 'dun', 'mukim', 'kampung', 'seksyen', 'produk', 'kluster' ];
 
     /**
      * Get the user associated with the Pegawai

@@ -48,6 +48,7 @@ class PenyataUntungRugiControllerWeb extends Controller
         //     }
         // }
 
+
         $getYear = date("Y");
         $reports = Report::where('type', 13)
         ->where('tab20', $authuser->id)

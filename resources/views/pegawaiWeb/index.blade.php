@@ -8,7 +8,7 @@
         <div class="row align-items-center" style="padding-top:15px;">
             <div id="displaysatu" >
                 <h3 class="text" style="padding-bottom:20px;color:#00A651;">Tetapan Pegawai</h3>
-                @if (Auth::user()->role == 1)
+                <!-- @if (Auth::user()->role == 1)
                 <div style="padding-bottom: 20px;" id="test">
                     <a class="btn btn-primary" onclick="API()">HRIP</a>
                 </div>
@@ -18,7 +18,7 @@
                     <input id="nokp" type="text" @if(isset($nokp)) value="{{$nokp}}" @endif/>
                 </div> --}}
                 
-                @endif
+                @endif -->
                 <table class="tblpegawai table table-sm table-hover" id="pegawaitbl" style="padding-bottom:2vh;padding-right:4vh" >
                     {{-- <colgroup>
                         <col span="1" style="width: 21%;">
@@ -61,8 +61,8 @@
                             <th scope="col">No Kad Pengenalan</th>
                             <th scope="col">Negeri</th>
                             <th scope="col">Pusat Tanggungjawab</th>
-                            <th scope="col">Daerah</th>
-                            <th scope="col">Mukim</th>
+                            <!-- <th scope="col">Daerah</th> -->
+                            <!-- <th scope="col">Mukim</th> -->
                             <th scope="col">Peranan</th>
                             <th scope="col">Aktifkan Pengguna</th>
                             <th scope="col"></th>
@@ -75,19 +75,10 @@
                                 <td class="form-check-label">{{$user->nokp}}</td>
                                 <td id="fldNegeri{{$user->id}}" class="form-check-label">@if($user->Negeri){{$user->Negeri->Negeri}}@endif</td>
                                 <td id="fldPT{{$user->id}}" class="form-check-label">@if($user->PT){{$user->PT->keterangan}}@endif</td>
-                                <td id="fldDaerah{{$user->id}}" class="form-check-label">@if($user->Mukim){{$user->Mukim->Daerah->Daerah}}@endif</td>
-                                <td>@if($user->Mukim)<input id="sltMukim{{$user->id}}" class="form-control form-control-sm" style="width:120px;font-size:12px;" value="{{$user->Mukim->Mukim}}" onclick="mukim({{$user->Mukim}},{{$user->id}})" />
-                                    @else <input id="sltMukim{{$user->id}}" class="form-control form-control-sm" style="width:120px;font-size:12px;" onclick="mukim('',{{$user->id}})" />
-                                    @endif
-                                    {{-- <select id="ddmukim{{$user->id}}" class="form-select form-select-sm" aria-label=".form-select-sm example" style="display:inline-block;width:27vh;" onchange="ChangeMukim({{$user->id}}, this.value)">
-                                    <option selected="true" disabled="disabled">Mukim</option>
-                                    @foreach ($ddMukim as $items)
-                                        <option value="{{ $items->U_Mukim_ID }}" @if($user->Negeri){{ ( $items->U_Mukim_ID == $user->mukim) ? 'selected' : '' }} @endif> 
-                                            {{ $items->Mukim }} 
-                                        </option>
-                                    @endforeach
-                                </select>--}}
-                                </td> 
+                                <!-- <td id="fldDaerah{{$user->id}}" class="form-check-label">@if($user->Mukim){{$user->Mukim->Daerah->Daerah}}@endif</td> -->
+                                <!-- <td>
+                                    
+                                </td>  -->
                                 <td>
                                     <select id="ddperanan{{$user->id}}" class="form-select form-select-sm" aria-label=".form-select-sm example" style="display:inline-block;width:15vh;font-size:12px;">
                                         <option selected="true" disabled="disabled">Peranan</option>
@@ -108,7 +99,7 @@
                                 </td>
                             </tr>
                         @endforeach
-                        {{-- @foreach ($pegawai as $user)
+                        <!-- {{-- @foreach ($pegawai as $user)
                         <tr class="align-middle">
                             <td class="form-check-label">{{$user->nama}}</td>
                             <td class="form-check-label">@if($user->Negeri){{$user->Negeri->Negeri}}@endif</td>
@@ -141,9 +132,9 @@
                                 <button class="btn btn-primary" type="submit" onclick="simpanpengguna({{$user->id}})" >Simpan </button>
                             </td>
                         </tr>
-                        @endforeach --}}
+                        @endforeach --}} -->
                     </tbody>
-                    <tfoot style="border: none">
+                    <!-- <tfoot style="border: none">
                         <tr style="border: none">
                             <th><input type="text" placeholder="Search Nama" /></th>
                             <th>Negeri</th>
@@ -154,7 +145,7 @@
                             <th></th>
                             <th></th>
                         </tr>
-                    </tfoot>
+                    </tfoot> -->
                 </table>
             </div>
         </div>
@@ -225,7 +216,7 @@
         </div>
     </div>
 </div>
-<div id="myModal2" class="modal">
+<!-- <div id="myModal2" class="modal">
     <div class="modal-content" style="height:75vh;width:90vh;margin-top:100px;">
         <span class="close2" style="float: left">&times;</span>
         <div class="modal-body">
@@ -259,7 +250,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection
 @section('script')
 <script type="text/javascript">
@@ -319,10 +310,10 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 
-    var modal2 = document.getElementById("myModal2");
-    if (event.target == modal2) {
-        modal2.style.display = "none";
-    }
+    // var modal2 = document.getElementById("myModal2");
+    // if (event.target == modal2) {
+    //     modal2.style.display = "none";
+    // }
 }
 
 var span = document.getElementsByClassName("close")[0];
@@ -331,56 +322,56 @@ span.onclick = function() {
     modal.style.display = "none";
 }
 
-var span2 = document.getElementsByClassName("close2")[0];
-span2.onclick = function() {
-    var modal = document.getElementById("myModal2");
-    modal.style.display = "none";
-}
+// var span2 = document.getElementsByClassName("close2")[0];
+// span2.onclick = function() {
+//     var modal = document.getElementById("myModal2");
+//     modal.style.display = "none";
+// }
 
-function API(){
-    var modal = document.getElementById("myModal2");
-    modal.style.display = "block";
-}
+// function API(){
+//     var modal = document.getElementById("myModal2");
+//     modal.style.display = "block";
+// }
 
-function sendapi(){
-    $('.loader').show();
-    var nama = $('#nama').val();
-    var kodpt = $('#kodpt').val();
-    var nokp = $('#nokp').val();
-    console.log(nokp);
+// function sendapi(){
+//     $('.loader').show();
+//     var nama = $('#nama').val();
+//     var kodpt = $('#kodpt').val();
+//     var nokp = $('#nokp').val();
+//     console.log(nokp);
 
-    if (confirm("Amaran! Panggilan API akan mengambil masa yang lama.")) {
-        $('.loader').show();
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: "/pegawaiPost2",
-            type:"POST",
-            data: {     
-                nama:nama,
-                kodpt:kodpt,
-                nokp:nokp
-            },
-            success: function(data) {
-                console.log(data);
-                if(data == 400){
-                    alert("Error API HRIP Pegawai");
-                }else if(data == 300){
-                    alert("Error Tiada data dijumpai");
-                }else if(data == 'nodata'){
-                    alert("Sila Isi Data Carian");
-                }else{
-                    alert("Data Pegawai Berjaya dan Selesai Ditarik");
-                    location.reload();
-                }
-                $('.loader').hide();
-            }
-        });
-    }else{
-        return false;
-    }
-}
+//     if (confirm("Amaran! Panggilan API akan mengambil masa yang lama.")) {
+//         $('.loader').show();
+//         $.ajax({
+//             headers: {
+//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//             },
+//             url: "/pegawaiPost2",
+//             type:"POST",
+//             data: {     
+//                 nama:nama,
+//                 kodpt:kodpt,
+//                 nokp:nokp
+//             },
+//             success: function(data) {
+//                 console.log(data);
+//                 if(data == 400){
+//                     alert("Error API HRIP Pegawai");
+//                 }else if(data == 300){
+//                     alert("Error Tiada data dijumpai");
+//                 }else if(data == 'nodata'){
+//                     alert("Sila Isi Data Carian");
+//                 }else{
+//                     alert("Data Pegawai Berjaya dan Selesai Ditarik");
+//                     location.reload();
+//                 }
+//                 $('.loader').hide();
+//             }
+//         });
+//     }else{
+//         return false;
+//     }
+// }
 
 function datatable(){
     var table = $('#pegawaitbl').DataTable({
@@ -399,61 +390,9 @@ function datatable(){
             }
         },
         "columnDefs": [
-    { "orderable": false, "targets": [4,5,6,7] }
+    { "orderable": false}
   ],
-        initComplete: function () {
-            this.api().columns([1, 2, 3]).every( function () {
-                var column = this;
-                console.log(column[0]);
-                if(column[0] == 3){
-                    var select = $('<select style="width:160px;"><option value=""></option></select>')
-                    .appendTo( $(column.footer()).empty() )
-                    .on( 'change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
- 
-                        column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                    } );
-                }else{
-                    var select = $('<select><option value=""></option></select>')
-                    .appendTo( $(column.footer()).empty() )
-                    .on( 'change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
- 
-                        column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                    } );
-                }
-                column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' )
-                } );
-            } );
-
-            this.api().columns([0]).every( function () {
-                var that = this;
- 
-                $( 'input', this.footer() ).on( 'keyup change clear', function () {
-                    if ( that.search() !== this.value ) {
-                        that
-                            .search( this.value )
-                            .draw();
-                    }
-                } );
-            } );
-
-            var r = $('#pegawaitbl tfoot tr');
-            r.find('th').each(function(){
-                $(this).css('padding', 8);
-            });
-            $('#pegawaitbl thead').append(r);
-            $('#search_0').css('text-align', 'center');
-        }
+        
     });
 }
 

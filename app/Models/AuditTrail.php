@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class AuditTrail extends Model
 {
     use HasFactory;
+
+
+    public function pegawais()
+    {
+        return $this->hasOne(Pegawai::class,'id','idpegawai');
+    }
 }

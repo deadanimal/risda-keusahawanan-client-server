@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 // ini_set('max_execution_time', 180);
 // error_reporting(0);
 ini_set('memory_limit', '-1');
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Models\Mukim;
 use App\Models\Negeri;
 use App\Models\Daerah;
+use App\Models\Usahawan;
 use App\Models\AuditTrail;
 use App\Models\PusatTanggungjawab;
 
@@ -217,7 +219,12 @@ class PegawaiControllerWeb extends Controller
                     foreach ($vals as $val){
                         if(is_string($val)){
                             // return 'okay';
-                            $pegawai = Pegawai::where('nokp', $vals->nokp)->orWhere('email',$vals->email)->first();
+                            if ($vals->email != null) {
+                                $pegawai = Pegawai::where('nokp', $vals->nokp)->orWhere('email',$vals->email)->first();
+                            }else{
+                                $pegawai = Pegawai::where('nokp', $vals->nokp)->first();
+                            }
+                           
                             if(!isset($pegawai)){
                                 $newpegawai = new Pegawai();
                                 $newpegawai->nama = $vals->nama;
@@ -247,10 +254,20 @@ class PegawaiControllerWeb extends Controller
                                 $newuser->type = 1;
                                 $newuser->profile_status = 0;
                                 $newuser->save();
+                                
+                                return 'complete';
+                            }else{
+                                return 'done';
                             }
+
                         }else{
                             // return 'banyak';
-                            $pegawai = Pegawai::where('nokp', $val->nokp)->orWhere('email',$val->email)->first();
+                            if ($vals->email != null) {
+                                $pegawai = Pegawai::where('nokp', $vals->nokp)->orWhere('email',$vals->email)->first();
+                            }else{
+                                $pegawai = Pegawai::where('nokp', $vals->nokp)->first();
+                            }
+                         
                             if(!isset($pegawai)){
                                 $newpegawai = new Pegawai();
                                 $newpegawai->nama = $val->nama;
@@ -280,9 +297,14 @@ class PegawaiControllerWeb extends Controller
                                 $newuser->type = 1;
                                 $newuser->profile_status = 0;
                                 $newuser->save();
+                                return 'complete';
+
+                            }else{
+                                return 'done';
                             }
                         }
                     }
+                  
                     return $vals;
                 }else{
                     return '300';
@@ -297,4 +319,38 @@ class PegawaiControllerWeb extends Controller
         }
         return true;
     }
+
+
+
+      public function calculateage()
+      { 
+       $usahawan = Usahawan::all();
+            foreach ($usahawan as $u) {
+                $ic = $u->nokadpengenalan;
+                if (strlen($ic) == 12) {
+                    $tahun = "19".$ic[0].$ic[1];
+                    $bulan = $ic[2].$ic[3];
+                    $hari = $ic[4].$ic[5];
+
+                    $tarikh_lahir = $tahun."-".$bulan."-".$hari;
+                    $u->update([
+                        'tarikhlahir'=>$tarikh_lahir,
+                    ]);
+                }
+              
+                $age = explode('-',$u->tarikhlahir);
+                $cage = (int)now()->format('Y') - (int)$age[0];
+                if ($cage == (int)now()->format('Y')) {
+                   $u->update([
+                    'age'=>'0'
+                   ]);
+                }else {
+                    $u->update([
+                    'age'=>$cage
+                   ]);
+                }
+
+            }
+            dd($usahawan);
+      }
 }

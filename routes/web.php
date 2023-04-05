@@ -58,6 +58,9 @@ Route::post('pegawaiPost2', [PegawaiControllerWeb::class, 'pegawaiPost2'])->name
 Route::get('ViewAll', [PegawaiControllerWeb::class, 'ViewAll']);
 Route::post('CariPegawai', [PegawaiControllerWeb::class, 'CariPegawai']);
 
+Route::get('/calculateage', [PegawaiControllerWeb::class, 'calculateage']);
+
+
 Route::resource('/usahawanWeb', UsahawanControllerWeb::class);
 Route::put('usahawanPost', [UsahawanControllerWeb::class, 'usahawanPost'])->name('usahawan.post');
 Route::post('usahawanGet', [UsahawanControllerWeb::class, 'usahawanGet'])->name('usahawan.get');
@@ -116,5 +119,7 @@ Route::resource('/ChangePass', ChangePassControllerWeb::class);
 Route::resource('/LupaPass', LupaPassControllerWeb::class);
 
 Route::post('generatereport', [LaporanProfilControllerWeb::class, 'generatereport'])->name('generatereport');
+
+Route::get('/test', [LandingControllerWeb::class, 'test']);
 
 require __DIR__.'/auth.php';

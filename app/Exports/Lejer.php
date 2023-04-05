@@ -30,6 +30,16 @@ class Lejer implements FromView
         ->whereYear('tarikh_aliran', '=', $this->year)
         ->get();
 
+        
+        foreach ($aliran as $a) {
+            $T = $a->tarikh_aliran;
+            $n = explode(' ',$T);
+            $new = $n[0].' '.$n[1];
+
+            $a['newTarikh'] = $new;
+        }
+
+
         // dd($aliran);
         $jualan_perolehan = 0;
         $deposit_jualan = 0;

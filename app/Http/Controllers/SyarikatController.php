@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Syarikat;
 use App\Models\Usahawan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class SyarikatController extends Controller
 {
@@ -26,6 +28,27 @@ class SyarikatController extends Controller
         // dd($request);
         $syarikat = new Syarikat();
 
+        // if ($request->logo_syarikat) {
+        //     $image = $request->logo_syarikat; // your base64 encoded
+        //     $ext = explode(';base64', $image);
+        //     $ext = explode('/', $ext[0]);
+        //     $ext = $ext[1];
+    
+        //     $image = str_replace('data:image/' . $ext . ';base64,', '', $image);
+        //     $image = str_replace(' ', '+', $image);
+        //     $imageName = $id . '.' . $ext;
+        //     if ($ext != null) {
+        //         $result = File::put(public_path() . '/storage/syarikat/' . $imageName, base64_decode($image));
+        //         $syarikat->logo_syarikat = "https://reds-training.risda.gov.my/storage/syarikat/" . $imageName;
+        //     }
+
+        // }
+
+        if ($request->hasFile('logo_syarikat')) {
+            $url ="storage/".$request->logo_syarikat->store('/syarikat');
+            $syarikat->logo_syarikat = $url;
+        }
+
         $syarikat->usahawanid = $request->usahawanid;
         $syarikat->namasyarikat = $request->namasyarikat;
         $syarikat->jenismilikanperniagaan = $request->jenismilikanperniagaan;
@@ -45,7 +68,7 @@ class SyarikatController extends Controller
         $syarikat->notelefon = $request->notelefon;
         $syarikat->no_hp = $request->no_hp;
         $syarikat->email = $request->email;
-        $syarikat->logo_syarikat = $request->logo_syarikat;
+        // $syarikat->logo_syarikat = $request->logo_syarikat;
         $syarikat->prefix_id = $request->prefix_id;
         $syarikat->createdby_id = $request->usahawanid;
         $syarikat->createdby_kod_PT = $request->Kod_PT;
@@ -60,7 +83,7 @@ class SyarikatController extends Controller
 
     public function show($id)
     {
-
+        return Syarikat::where('usahawanid',$id)->first();
         $syarikat = Usahawan::where('usahawans.usahawanid', $id)
         ->join('syarikats', 'syarikats.usahawanid', 'usahawans.usahawanid')
         ->select(
@@ -90,15 +113,39 @@ class SyarikatController extends Controller
             'usahawans.Kod_PT',
             
             )
-        ->get()->first();
+        ->first();
         return response()->json($syarikat);
     }
 
    
     public function update(Request $request, $id)
     {
-        $syarikat = Syarikat::where('usahawanid', $id)->get()->first();
+        $syarikat = Syarikat::where('usahawanid', $id)->first();
         // $syarikat->usahawanid = $request->usahawanid;
+
+        // if ($request->logo_syarikat) {
+        //     $image = $request->logo_syarikat; // your base64 encoded
+        //     $ext = explode(';base64', $image);
+        //     $ext = explode('/', $ext[0]);
+        //     $ext = $ext[1];
+    
+        //     $image = str_replace('data:image/' . $ext . ';base64,', '', $image);
+        //     $image = str_replace(' ', '+', $image);
+        //     $imageName = $id . '.' . $ext;
+        //     if ($ext != null) {
+        //         $result = File::put(public_path() . '/storage/syarikat/' . $imageName, base64_decode($image));
+        //         $syarikat->logo_syarikat = "https://reds-training.risda.gov.my/storage/syarikat/" . $imageName;
+        //     }
+        // }
+        if ($request->hasFile('logo_syarikat')) {
+            if (File::exists(public_path($syarikat->logo_syarikat))) {
+                File::delete(public_path($syarikat->logo_syarikat));
+           }
+           $url ="storage/".$request->logo_syarikat->store('/buletin');
+           $syarikat->logo_syarikat = $url;
+        }
+
+
         $syarikat->namasyarikat = $request->namasyarikat;
         $syarikat->jenismilikanperniagaan = $request->jenismilikanperniagaan;
         $syarikat->nodaftarssm = $request->nodaftarssm;
@@ -117,7 +164,7 @@ class SyarikatController extends Controller
         $syarikat->notelefon = $request->notelefon;
         $syarikat->no_hp = $request->no_hp;
         $syarikat->email = $request->email;
-        $syarikat->logo_syarikat = $request->logo_syarikat;
+        // $syarikat->logo_syarikat = $request->logo_syarikat;
         $syarikat->prefix_id = $request->prefix_id;
 
         $syarikat->nama_akaun_bank = $request->nama_akaun_bank;
@@ -141,6 +188,7 @@ class SyarikatController extends Controller
      */
     public function destroy(Syarikat $syarikat)
     {
-        //
+        $syarikat->delete();
+        return 'berjaya';
     }
 }

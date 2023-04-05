@@ -72,7 +72,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">TUNAI A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -106,7 +106,8 @@
             @foreach ($alirans as $aliran)
                 <tr>
                     @if ($aliran->id_kategori_aliran <= 8)
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -121,8 +122,8 @@
                         <td></td>
                         <td></td>
                         <td></td>
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -158,7 +159,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">JUALAN/PEROLEHAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -200,8 +201,8 @@
                             <td></td>
                         @endif
 
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -270,7 +271,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">DEPOSIT JUALAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -312,8 +313,8 @@
                             <td></td>
                         @endif
 
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -381,7 +382,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">PULANGAN BELIAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -423,8 +424,8 @@
                             <td></td>
                         @endif
 
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -490,7 +491,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">STOK AKHIR A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -532,8 +533,8 @@
                             <td></td>
                         @endif
 
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -600,7 +601,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">HASIL SEWAAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -642,8 +643,8 @@
                             <td></td>
                         @endif
 
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -710,7 +711,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">HASIL DIVIDEN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -752,8 +753,8 @@
                             <td></td>
                         @endif
 
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -820,7 +821,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">HASIL KOMISEN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -862,8 +863,8 @@
                             <td></td>
                         @endif
 
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -929,7 +930,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">HASIL LAIN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -971,8 +972,8 @@
                             <td></td>
                         @endif
 
-
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1040,7 +1041,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">BELIAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1070,8 +1071,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 9)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1147,7 +1148,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">DEPOSIT BELIAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1177,8 +1178,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 10)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1253,7 +1254,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">PULANGAN JUALAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1283,8 +1284,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 11)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1361,7 +1362,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">STOK AWAL A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1391,8 +1392,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 12)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1471,7 +1472,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">KOS PENGEPOSAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1501,8 +1502,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 13)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1578,7 +1579,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">KOS ALAT TULIS A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1608,8 +1609,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 14)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1685,7 +1686,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">BAYARAN SEWA A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1715,8 +1716,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 15)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1794,7 +1795,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">UPAH/GAJI PEKERJA A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1824,8 +1825,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 16)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -1902,7 +1903,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">UPAH/GAJI SENDIRI A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -1932,8 +1933,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 17)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2009,7 +2010,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">KWSP/SOCSO A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2039,8 +2040,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 18)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2120,7 +2121,7 @@
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">BAYARAN BIL (UTILITI) A/C
                 </th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2150,8 +2151,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 19)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2229,7 +2230,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">PETROL/TOL/PARKING A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2259,8 +2260,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 20)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2337,7 +2338,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">PENYELENGGARAAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2367,8 +2368,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 21)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2445,7 +2446,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">BELIAN ASET A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2475,8 +2476,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 22)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2554,7 +2555,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">BAYARAN KOMISEN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2584,8 +2585,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 23)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2663,7 +2664,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">CUKAI/ZAKAT A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2693,8 +2694,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 24)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2773,7 +2774,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">PEMBAYARAN PINJAMAN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2803,8 +2804,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 25)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 
@@ -2883,7 +2884,7 @@
             <tr>
                 <th>DR</th>
                 <th colspan="4" style="width: 200px; text-align:center; font-weight: bold;">BAYARAN LAIN A/C</th>
-                <th style="text-align::right">CR</th>
+                <th style="text-align:right">CR</th>
 
             </tr>
 
@@ -2913,8 +2914,8 @@
 
             @foreach ($alirans as $aliran)
                 @if ($aliran->id_kategori_aliran == 26)
-                    <tr>
-                        <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td>
+                    <tr>                        <td>{{$aliran->newTarikh}}</td>
+                        <!-- <td>{{ date('M d', strtotime($aliran->tarikh_aliran)) }}</td> -->
                         <td>{{ $aliran->keterangan_aliran }}</td>
                         <td>{{ number_format($aliran->jumlah_aliran, 2) }}</td>
 

@@ -78,7 +78,7 @@
                             <td class="align-middle text-nowrap">
                                 <div class="form-check form-switch" style="margin-left:10px;">
                                 <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                                <input class="form-check-input" id="flexSwitchCheckDefault{{$user->usahawanid}}" name="pengguna" type="checkbox" onclick="aktifkanpengguna('status',{{$user}})"/>
+                                <input {{$user->user->status_pengguna == 1 ? 'checked':''}} class="form-check-input " id="flexSwitchCheckDefault{{$user->usahawanid}}" name="pengguna" type="checkbox" onclick="aktifkanpengguna('status',{{$user}})"  />
                                 </div>
                             </td>
                             @if (Auth::user()->role == 1 || Auth::user()->role == 7)

@@ -188,7 +188,7 @@ class CarianController extends Controller
 
 
         // return response()->json($request);
-
+        // return $request->all();
         $users = Usahawan::without(['PT','daerah','dun','parlimen','kateusah','syarikat','etnik','mukim','kampung','seksyen','insentif', 'perniagaan', 'pekebun', 'user', 'negeri']);
 
         if(!empty($request->nama)){
@@ -204,7 +204,7 @@ class CarianController extends Controller
             $users->where('Kod_PT', $request->PT);
         }
 
-        $users->select('namausahawan', 'nokadpengenalan', 'usahawanid');
+        $users->select('namausahawan', 'nokadpengenalan', 'usahawanid','U_Negeri_ID','Kod_PT');
         
         $result = $users->paginate(15);
 

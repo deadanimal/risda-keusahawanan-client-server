@@ -30,6 +30,14 @@ class BukuTunai implements FromView
         ->whereYear('tarikh_aliran', '=', $this->year)
         ->get();
 
+        foreach ($aliran as $a) {
+            $T = $a->tarikh_aliran;
+            $n = explode(' ',$T);
+            $new = $n[1].' '.$n[0].' '.$n[2];
+
+            $a['newTarikh'] = $new;
+        }
+
         // dd($aliran);
 
         // dd($user);

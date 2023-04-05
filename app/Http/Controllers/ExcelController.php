@@ -23,7 +23,6 @@ class ExcelController extends Controller
     public function bukuTunaiExcel(Request $request)
     {
 
-        // dd($id);
         $id = $request->id;
         $month = $request->bulan;
         $year = $request->tahun;
@@ -51,6 +50,13 @@ class ExcelController extends Controller
             ->whereYear('tarikh_aliran', '=', $year)
             ->get();
 
+        foreach ($aliran as $a) {
+            $T = $a->tarikh_aliran;
+            $n = explode(' ',$T);
+            $new = $n[1].' '.$n[0].' '.$n[2];
+    
+            $a['newTarikh'] = $new;
+        }        
 
         $pdf = PDF::loadView('excel.buku-tunai', [
             'alirans' => $aliran,
@@ -308,7 +314,6 @@ class ExcelController extends Controller
         ->whereYear('tarikh_aliran', '=', $year)
         ->get();
 
-
         $jualan_perolehan = 0;
         $deposit_jualan = 0;
         $pulangan_belian = 0;
@@ -426,6 +431,15 @@ class ExcelController extends Controller
         }
 
         $nextmonth = new Carbon('first day of next month');
+
+        foreach ($aliran as $a) {
+            $T = $a->tarikh_aliran;
+            $n = explode(' ',$T);
+            $new = $n[0].' '.$n[1];
+
+            $a['newTarikh'] = $new;
+        }
+
 
         $pdf = PDF::loadView('excel.lejer', [
             'alirans'=>$aliran,

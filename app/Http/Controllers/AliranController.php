@@ -130,11 +130,11 @@ class AliranController extends Controller
 
     public function getCurrentMonthData($id){
 
+       // dd(Carbon::now()->month);
         $aliran = Aliran::where('id_pengguna', $id)
         ->where('id_kategori_aliran', 1)
         ->whereMonth('tarikh_aliran', Carbon::now()->month)
         ->orderBy('tarikh_aliran', 'desc')->get();
-
         $total = 0;
 
         foreach($aliran as $x){

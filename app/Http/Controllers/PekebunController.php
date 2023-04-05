@@ -26,17 +26,18 @@ class PekebunController extends Controller
         $pekebun->status_daftar_usahawan = $request->status_daftar_usahawan;
         $pekebun->Nama_PK = $request->Nama_PK;
         $pekebun->No_KP = $request->No_KP;
-        $pekebun->No_Geran = $request->No_Geran;
-        $pekebun->No_Lot = $request->No_Lot;
-        $pekebun->U_Negeri_ID = $request->U_Negeri_ID;
-        $pekebun->U_Daerah_ID = $request->U_Daerah_ID;
-        $pekebun->U_Mukim_ID = $request->U_Mukim_ID;
-        $pekebun->U_Parlimen_ID = $request->U_Parlimen_ID;
-        $pekebun->U_Dun_ID = $request->U_Dun_ID;
-        $pekebun->U_Kampung_ID = $request->U_Kampung_ID;
-        $pekebun->U_Seksyen_ID = $request->U_Seksyen_ID;
-        $pekebun->keluasan_hektar = $request->keluasan_hektar;
-        $pekebun->jenis_tanaman_kebun = $request->jenis_tanaman_kebun;
+        // $pekebun->noTS = $request->noTS;
+        // $pekebun->No_Geran = $request->No_Geran;
+        // $pekebun->No_Lot = $request->No_Lot;
+        // $pekebun->U_Negeri_ID = $request->U_Negeri_ID;
+        // $pekebun->U_Daerah_ID = $request->U_Daerah_ID;
+        // $pekebun->U_Mukim_ID = $request->U_Mukim_ID;
+        // $pekebun->U_Parlimen_ID = $request->U_Parlimen_ID;
+        // $pekebun->U_Dun_ID = $request->U_Dun_ID;
+        // $pekebun->U_Kampung_ID = $request->U_Kampung_ID;
+        // $pekebun->U_Seksyen_ID = $request->U_Seksyen_ID;
+        // $pekebun->keluasan_hektar = $request->keluasan_hektar;
+        // $pekebun->jenis_tanaman_kebun = $request->jenis_tanaman_kebun;
 
         $pekebun->save();
 
@@ -109,5 +110,11 @@ class PekebunController extends Controller
             // dd($e);
             return response()->json('400');
         }
+    }
+
+    public function destroy(Pekebun $pekebun)
+    {
+        $pekebun->delete();
+        return 'berjaya';
     }
 }

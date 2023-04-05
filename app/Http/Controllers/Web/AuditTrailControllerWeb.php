@@ -19,7 +19,7 @@ class AuditTrailControllerWeb extends Controller
             return redirect('/landing');
         }
         $today = date("Y");
-        $Audits = AuditTrail::whereYear('Date', $today)->orderBy('Date', 'DESC')->get();
+        $Audits = AuditTrail::with('pegawais')->whereYear('Date', $today)->orderBy('Date', 'DESC')->get();
         foreach ($Audits as $Audit) {
             $Audit->user = $Audit->idpegawai;
             if($Audit->Type == 1){
@@ -31,10 +31,10 @@ class AuditTrailControllerWeb extends Controller
             }else if($Audit->Type == 4){
                 $Audit->jenis = "Tetapan Komponen";
             }
-            $pegawai = Pegawai::where('id', $Audit->idpegawai)->first();
-            if(isset($pegawai)){
-                $Audit->pegawai = $pegawai->nama;
-            }
+            // $pegawai = Pegawai::where('id', $Audit->idpegawai)->first();
+            // if(isset($pegawai)){
+            //     $Audit->pegawai = $pegawai->nama;
+            // }
         }
         // $users = Usahawan::all();
         // foreach ($users as $usahawan) {
@@ -81,7 +81,8 @@ class AuditTrailControllerWeb extends Controller
             }else if($Audit->Type == 4){
                 $Audit->jenis = "Tetapan Komponen";
             }
-            $pegawai = Pegawai::where('id', $Audit->idpegawai)->first();
+            // $pegawai = Pegawai::where('id', $Audit->idpegawai)->first();
+            $pegawai = Pegawai::find($Audit->idpegawai);
             if(isset($pegawai)){
                 $Audit->pegawai = $pegawai->nama;
             }

@@ -21,7 +21,7 @@
           @foreach ($Audits as $Audit)
           <tr class="border-bottom-0 rounded-0 border-x-0 border border-300">
             <td class="notification-time">{{date("d-m-Y h:ia", strtotime($Audit->Date))}}</td>
-            <td class="notification-body"><p class="mb-1"><strong>{{$Audit->pegawai}}</strong> {{$Audit->Desc}} di <strong>{{$Audit->jenis}}</strong></p></td>
+            <td class="notification-body"><p class="mb-1"><strong>{{$Audit->pegawais->nama}}</strong> {{$Audit->Desc}} di <strong>{{$Audit->jenis}}</strong></p></td>
           </tr>
           @endforeach
         </tbody>
